@@ -24,7 +24,7 @@ export const TaskProvider = ({ children }) => {
   const toggleTask = useCallback((id) => {
     setTasks((prev) =>
       prev.map((t) =>
-        t.id === id ? { ...t, completed: !t.completed } : t
+        t.id === id && t.completed === false ? { ...t, completed: !t.completed } : t
       )
     );
   }, [setTasks]);

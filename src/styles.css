@@ -235,6 +235,7 @@ html, body, #root {
   margin-bottom: 10px;
   box-shadow: var(--shadow);
   transition: transform 0.2s ease;
+  cursor: pointer;
 }
 
 [data-theme="dark"] .task-item {

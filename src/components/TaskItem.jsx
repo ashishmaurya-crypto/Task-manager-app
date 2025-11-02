@@ -5,8 +5,8 @@ const TaskItem = ({ task }) => {
   const { toggleTask, deleteTask } = useTasks();
 
   return (
-    <div className={`task-item ${task.completed ? "completed" : ""}`}>
-      <div className="task-text" onClick={() => toggleTask(task.id)}>
+    <div className={`task-item ${task.completed ? "completed" : ""}`} onClick={() => toggleTask(task.id)}>
+      <div className="task-text">
         <span>{task.text}</span>
         <p className="time">{task.createdAt}</p>
       </div>
