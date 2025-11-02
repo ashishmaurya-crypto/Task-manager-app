@@ -1,0 +1,287 @@
+/* 🌈 THEME VARIABLES */
+:root {
+  /* Light Theme */
+  --bg-gradient: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+  --card-gradient: linear-gradient(145deg, #ffffff 0%, #f2f3f5 100%);
+  --accent-gradient: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+  --text: #1a1a1a;
+  --muted: #666;
+  --accent: #3366ff;
+  --danger: #ff4d4d;
+  --radius: 12px;
+  --shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+[data-theme="dark"] {
+  /* Dark Theme */
+  --bg-gradient: linear-gradient(135deg, #000000 0%, #000000 100%);
+  --card-gradient: linear-gradient(145deg, #222239 0%, #1a1a2b 100%);
+  --accent-gradient: linear-gradient(135deg, #00c6ff 0%, #0072ff 100%);
+  --text: #f5f6fa;
+  --muted: #a0a5c0;
+  --accent: #4ea1ff;
+  --danger: #ff7070;
+  --shadow: 0 4px 25px rgba(0, 0, 0, 0.5);
+}
+
+/* 🧭 GLOBAL RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* 🌍 FULL PAGE SETUP */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  font-family: "Poppins", sans-serif;
+  background: var(--bg-gradient);
+  background-size: 400% 400%;
+  animation: gradientFlow 18s ease infinite;
+  color: var(--text);
+  overflow: hidden; /* Prevent full-screen scrolling */
+  transition: background 0.6s ease, color 0.6s ease;
+}
+
+/* ✅ Force background update on theme change */
+[data-theme="dark"] body,
+[data-theme="dark"] #root,
+[data-theme="dark"] html {
+  background: var(--bg-gradient) !important;
+  background-size: 400% 400%;
+  animation: gradientFlow 18s ease infinite;
+}
+
+/* 🌈 Background animation */
+@keyframes gradientFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ✨ Subtle fade-in animation for app */
+@keyframes appFadeIn {
+  0% { opacity: 0; transform: translateY(10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* 🧩 APP CONTAINER (TAKES FULL SCREEN) */
+.app {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  background: transparent;
+  transition: background 0.6s ease;
+  animation: appFadeIn 0.8s ease-out; /* Added subtle fade-in and slide-up animation */
+}
+
+/* ✨ Subtle bounce animation for panel */
+@keyframes panelBounce {
+  0% { transform: scale(0.95); opacity: 0; }
+  50% { transform: scale(1.02); opacity: 0.8; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+[data-theme="dark"] .app {
+  background: var(--bg-gradient);
+  background-size: 400% 400%;
+  animation: gradientFlow 18s ease infinite, appFadeIn 0.8s ease-out; /* Combined animations */
+}
+
+/* 🧱 HEADER + FOOTER */
+.header, .footer {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  padding: 14px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: var(--shadow);
+  position: relative;
+  z-index: 10;
+  transition: background 0.4s ease, color 0.4s ease;
+  color: var(--text); /* Added to ensure text color is set */
+  flex-shrink: 0; /* Prevent shrinking */
+}
+
+[data-theme="dark"] .header,
+[data-theme="dark"] .footer {
+  background: rgba(0, 0, 0, 0.35);
+  box-shadow: 0 4px 25px rgba(255, 255, 255, 0.1); /* Added for visible shadow in dark mode */
+}
+
+/* 🌙 THEME TOGGLE BUTTON (ALWAYS VISIBLE) */
+.theme-toggle {
+  border: none;
+  background: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+  color: var(--text);
+  transition: transform 0.25s ease, color 0.25s ease, text-shadow 0.3s ease;
+}
+
+.theme-toggle:hover {
+  transform: scale(1.15);
+  text-shadow: 0 0 10px var(--accent);
+}
+
+[data-theme="dark"] .theme-toggle {
+  color: #ffffff;
+  text-shadow: 0 0 6px rgba(255, 255, 255, 0.6);
+}
+
+/* 📦 MAIN PANEL */
+.panel {
+  width: 90%;
+  max-width: 520px;
+  margin: 40px auto;
+  background: var(--card-gradient);
+  padding: 24px;
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transition: all 0.4s ease;
+  animation: panelBounce 0.6s ease-out; /* Added subtle bounce-in animation */
+  overflow-y: auto; /* Enable vertical scrolling inside the panel */
+  max-height: calc(100vh - 120px); /* Limit height to allow scrolling, adjust 120px for header/footer space */
+  flex: 1; /* Allow panel to grow and fill available space */
+}
+
+[data-theme="dark"] .panel {
+  background: var(--card-gradient);
+}
+
+/* 📝 TASK FORM */
+.task-form {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.task-form input {
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius);
+  border: 1px solid #ccc;
+  background: #fff;
+  color: var(--text);
+  outline: none;
+  font-size: 0.95rem;
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+[data-theme="dark"] .task-form input {
+  background: #2d3345;
+  border: 1px solid #3a4160;
+  color: var(--text);
+}
+
+.task-form button {
+  background: var(--accent-gradient);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 10px 18px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.task-form button:hover {
+  transform: scale(1.05);
+  opacity: 0.9;
+}
+
+/* 📋 TASK LIST */
+.task-list {
+  margin-top: 20px;
+}
+
+.filters {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 15px;
+  flex-wrap: wrap;
+}
+
+.filters button {
+  background: var(--accent-gradient);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 8px 12px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.filters button:hover {
+  transform: scale(1.05);
+  opacity: 0.85;
+}
+
+/* ✅ TASK ITEM */
+.task-item {
+  background: rgba(255, 255, 255, 0.8);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 14px;
+  border-radius: var(--radius);
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+  transition: transform 0.2s ease;
+}
+
+[data-theme="dark"] .task-item {
+  background: rgba(40, 45, 70, 0.8);
+  color: var(--text); /* Added to ensure text color is visible in dark mode */
+}
+
+.task-item:hover {
+  transform: scale(1.02);
+}
+
+.task-item.completed {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
+.task-text {
+  cursor: pointer;
+  color: inherit; /* Ensures it inherits the text color */
+}
+
+.task-text .time {
+  font-size: 0.75rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+
+/* 🗑️ DELETE BUTTON */
+.delete-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 1.3rem;
+  color: var(--danger);
+  padding: 6px 8px;
+  border-radius: 8px;
+  transition: transform 0.2s ease, background 0.25s ease;
+}
+
+.delete-btn:hover {
+  background: rgba(255, 0, 0, 0.1);
+  transform: scale(1.15);
+}
+
+/* 💤 EMPTY STATE */
+.empty {
+  text-align: center;
+  color: var(--muted);
+  margin-top: 20px;
+}
